@@ -50,6 +50,53 @@ label{font-size:12px;color:var(--mut);letter-spacing:.08em;text-transform:upperc
 .lk{display:flex;gap:8px;align-items:center;font-size:13px;padding:7px 0;border-bottom:1px solid var(--line)}.lk span{flex:1;overflow-wrap:anywhere}.lk button{padding:6px 12px;font-size:12px}
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}.kpi{background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:14px}.kpi b{display:block;font:500 28px 'Cormorant Garamond',serif;color:var(--gold)}
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--wine);color:#fff;padding:10px 18px;border-radius:99px;font-size:14px;display:none;z-index:50}
+
+/* Experiência de vitrine */
+.promo-strip{background:var(--wine);color:#fff;text-align:center;padding:9px 14px;font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+header{position:sticky;top:0;z-index:12;background:var(--bg);backdrop-filter:blur(12px)}
+.hero{padding:42px 22px 34px}
+.hero h1{font-size:clamp(34px,7vw,54px)}
+.catalog-tools{position:relative;padding-top:16px}
+.search-wrap{position:relative;max-width:720px;margin:0 auto 14px}
+.search-wrap input{padding:15px 18px 15px 46px;border-radius:999px;border:1px solid var(--line);box-shadow:0 5px 22px rgba(43,26,31,.05);font-size:15px}
+.search-icon{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--mut);font-size:18px;pointer-events:none}
+.filters{display:flex;gap:9px;flex-wrap:nowrap;overflow-x:auto;padding:7px 2px 12px;scrollbar-width:thin}
+.filter{white-space:nowrap;padding:9px 15px;font-size:12px;transition:background .2s,border-color .2s}
+.filter:hover{border-color:var(--gold)}
+.catalog-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:1100px;margin:8px auto 0;padding:8px 20px}
+.catalog-heading h2{font-size:30px}
+.catalog-heading select{width:auto;min-width:175px;margin:0;padding:9px 12px;font-size:13px}
+.result-count{margin:0;color:var(--mut);font-size:12px}
+.grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;padding-top:12px}
+.card{border-radius:14px;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(43,26,31,.08)}
+.card>img{width:100%;aspect-ratio:1/1;object-fit:contain;background:#fff;padding:12px}
+.card>.vis{height:auto;aspect-ratio:1/1;background:radial-gradient(circle at 50% 35%,rgba(176,138,74,.2),rgba(110,18,48,.06) 72%)}
+.card>.vis>div{font-size:34px!important;letter-spacing:.12em}
+.body{padding:13px 14px 15px;gap:6px}
+.body h3{font-family:Jost,system-ui,sans-serif;font-size:15px;font-weight:500;line-height:1.35;min-height:40px}
+.body p{font-size:12px}
+.body .notes{font-size:10px}
+.price{font:500 22px 'Cormorant Garamond',serif}
+.row{gap:8px;align-items:center}
+.btn{padding:9px 13px;font-size:12px;white-space:nowrap}
+@media(max-width:560px){
+ .promo-strip{font-size:9px;letter-spacing:.08em}
+ header{padding:13px 16px}
+ .hero{padding:34px 18px 28px}
+ .hero p{font-size:13px}
+ .catalog-tools{padding-left:14px;padding-right:14px}
+ .catalog-heading{padding:8px 14px;align-items:flex-end}
+ .catalog-heading h2{font-size:26px}
+ .catalog-heading select{min-width:145px;max-width:48%;font-size:11px}
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;padding:10px 10px 36px}
+ .body{padding:10px}
+ .body h3{font-size:13px;min-height:52px}
+ .body p{font-size:11px}
+ .price{font-size:20px}
+ .btn{padding:8px 10px;font-size:11px}
+}
+
 </style><script src="https://sdk.mercadopago.com/js/v2"></script></head>
 <body>
 <div id="app"></div>
@@ -69,20 +116,25 @@ function applyRef(){const x=parseHash();
 function toast(t){const e=$("#toast");e.textContent=t;e.style.display="block";setTimeout(()=>e.style.display="none",2200)}
 const count=()=>Object.values(cart).reduce((a,b)=>a+b,0);
 const total=()=>Object.entries(cart).reduce((s,[id,q])=>s+P.find(p=>p.id===id).p*q,0);
-let searchTerm="",activeCategory="Todos";
+let searchTerm="",activeCategory="Todos",sortProducts="relevance";
 const categories=["Todos",...new Set(P.map(p=>p.category))];
 function productCard(p){const image=p.img&&IMG[p.img]?'<img src="'+IMG[p.img]+'" alt="'+esc(p.n)+'" loading="lazy">':'<div class="vis"><span class="tag">'+esc(p.category)+'</span><div style="font-family:Georgia,serif;font-size:42px;color:var(--gold)">ALLU</div></div>';return '<article class="card" id="'+p.id+'">'+image+'<div class="body"><div class="notes">'+esc(p.category)+'</div><h3>'+esc(p.name)+'</h3><p>'+esc(p.label)+'</p>'+(p.notes?'<div class="notes">'+esc(p.notes)+'</div>':'')+'<div class="row"><span class="price">'+R(p.price)+'</span><button class="btn" onclick="add(\''+p.id+'\')">Adicionar</button></div></div></article>'}
-function renderProducts(){const term=searchTerm.trim().toLocaleLowerCase("pt-BR");const filtered=P.filter(p=>(activeCategory==="Todos"||p.category===activeCategory)&&(!term||[p.name,p.label,p.category,p.code||""].join(" ").toLocaleLowerCase("pt-BR").includes(term)));$("#products").innerHTML=filtered.length?filtered.map(productCard).join(""):'<p style="grid-column:1/-1;text-align:center;color:var(--mut);padding:30px">Nenhum produto encontrado. Tente outra busca ou categoria.</p>';$("#resultCount").textContent=filtered.length+" produtos";}
+function renderProducts(){const term=searchTerm.trim().toLocaleLowerCase("pt-BR");let filtered=P.filter(p=>(activeCategory==="Todos"||p.category===activeCategory)&&(!term||[p.name,p.label,p.category,p.code||""].join(" ").toLocaleLowerCase("pt-BR").includes(term)));if(sortProducts==="price-asc")filtered.sort((a,b)=>a.price-b.price);else if(sortProducts==="price-desc")filtered.sort((a,b)=>b.price-a.price);else if(sortProducts==="name-asc")filtered.sort((a,b)=>a.name.localeCompare(b.name,"pt-BR"));else if(sortProducts==="name-desc")filtered.sort((a,b)=>b.name.localeCompare(a.name,"pt-BR"));$("#products").innerHTML=filtered.length?filtered.map(productCard).join(""):'<p style="grid-column:1/-1;text-align:center;color:var(--mut);padding:30px">Nenhum produto encontrado. Tente outra busca ou categoria.</p>';$("#resultCount").textContent=filtered.length+" produtos encontrados";}
 function store(){const hi=parseHash().p;const feat=hi?P.find(p=>p.id===hi):null;
  $("#app").innerHTML=`
+<div class="promo-strip">Descubra sua próxima escolha favorita • Allu Cosméticos</div>
 <header><div class="logo">ALLU<small>COSMÉTICOS</small></div><button class="cartbtn" onclick="openCart()">Sacola (${count()})</button></header>
-<section class="hero"><h1>Beleza que <i>emociona</i>,<br>presentes que ficam.</h1><p>Explore o catálogo Allu Cosméticos: perfumes, cuidados com o corpo, rosto, cabelos, maquiagem e muito mais. Todos os preços já incluem R$ 20,00 sobre o valor de catálogo.</p><span class="badge">CATÁLOGO • 223 PRODUTOS</span></section>
-<section class="catalog-tools"><input id="searchProducts" type="search" placeholder="Buscar produto, linha ou código..." value="${esc(searchTerm)}"><div class="filters">${categories.map(c=>'<button class="filter '+(c===activeCategory?'active':'')+'" onclick="setCategory(\''+c.replace(/'/g,"\\'")+'\')">'+esc(c)+'</button>').join("")}</div><p id="resultCount" class="result-count"></p></section>
+<section class="hero"><h1>Beleza que <i>emociona</i>,<br>presentes que ficam.</h1><p>Encontre perfumes, cuidados com o corpo, rosto, cabelos, maquiagem e muito mais. Preços com R$ 20,00 adicionados ao valor de catálogo.</p><span class="badge">CATÁLOGO • 223 PRODUTOS</span></section>
+<section class="catalog-tools">
+<div class="search-wrap"><span class="search-icon">⌕</span><input id="searchProducts" type="search" placeholder="O que você está procurando?" value="${esc(searchTerm)}"></div>
+<div class="filters">${categories.map(c=>'<button class="filter '+(c===activeCategory?'active':'')+'" onclick="setCategory(\''+c.replace(/'/g,"\\'")+'\')">'+esc(c)+'</button>').join("")}</div>
+</section>
+<div class="catalog-heading"><div><h2>${activeCategory==="Todos"?"Nossos produtos":esc(activeCategory)}</h2><p id="resultCount" class="result-count"></p></div><select id="sortProducts" aria-label="Ordenar produtos"><option value="relevance">Mais relevantes</option><option value="price-asc">Menor preço</option><option value="price-desc">Maior preço</option><option value="name-asc">Nome: A–Z</option><option value="name-desc">Nome: Z–A</option></select></div>
 <div class="grid" id="products"></div>
 <section class="values"><div><h3>Catálogo completo</h3><p>Produtos organizados por categoria para facilitar sua escolha.</p></div><div><h3>Pagamento seguro</h3><p>Pix ou cartão, direto na página.</p></div><div><h3>Preço transparente</h3><p>Valor do catálogo acrescido de R$ 20,00 por produto.</p></div></section>
 <footer>© Allu Cosméticos</footer>
 <div class="ov" id="ov" onclick="if(event.target===this)closeCart()"><div class="panel" id="panel"></div></div>`;
-$("#searchProducts").addEventListener("input",e=>{searchTerm=e.target.value;renderProducts()});renderProducts();
+$("#searchProducts").addEventListener("input",e=>{searchTerm=e.target.value;renderProducts()});$("#sortProducts").value=sortProducts;$("#sortProducts").addEventListener("change",e=>{sortProducts=e.target.value;renderProducts()});renderProducts();
 if(feat){const e=document.getElementById(feat.id);e&&setTimeout(()=>{e.scrollIntoView({behavior:"smooth",block:"center"});e.style.outline="2px solid var(--gold)"},300)}}
 function setCategory(category){activeCategory=category;store()}
 
