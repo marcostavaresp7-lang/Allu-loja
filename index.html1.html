@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Allu Cosméticos</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbf6f1;--surf:#fff;--tx:#2b1a1f;--mut:#7a6a6e;--gold:#b08a4a;--wine:#6e1230;--line:#eadfd6;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1a0f13;--surf:#26171c;--tx:#f4e9e2;--mut:#b5a3a6;--gold:#d4ad6a;--wine:#e9a0b6;--line:#3a262d}}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font-family:Jost,system-ui,sans-serif;font-weight:300}
+h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;margin:0}
+header{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--line)}
+.logo{font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;letter-spacing:.18em}.logo small{display:block;font:300 10px Jost,sans-serif;letter-spacing:.3em;color:var(--gold)}
+button{font:inherit;cursor:pointer}.cartbtn{background:none;border:1px solid var(--gold);color:var(--tx);padding:8px 16px;border-radius:99px;font-size:14px}
+.hero{padding:56px 22px 44px;text-align:center;background:radial-gradient(circle at 50% 0,rgba(176,138,74,.18),transparent 70%)}
+.hero h1{font-size:clamp(38px,9vw,64px);line-height:1.05}.hero h1 i{color:var(--gold)}
+.hero p{max-width:460px;margin:16px auto 0;color:var(--mut);line-height:1.6}
+.badge{display:inline-block;margin-top:22px;font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);border-top:1px solid var(--gold);border-bottom:1px solid var(--gold);padding:6px 0}
+.card img{width:100%;display:block}.pr{padding:4px 0 10px}.pr+.pr{border-top:1px solid var(--line);padding-top:14px}.pr p{margin:2px 0 0}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px;padding:10px 20px 50px;max-width:1100px;margin:auto}
+.card{background:var(--surf);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.vis{height:170px;display:flex;align-items:center;justify-content:center;position:relative}
+.vis svg{height:130px;filter:drop-shadow(0 10px 12px rgba(0,0,0,.25))}
+.tag{position:absolute;top:12px;left:12px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;background:rgba(255,255,255,.85);color:#2b1a1f;padding:4px 9px;border-radius:99px}
+.body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1}
+.body h3{font-size:24px}.body p{margin:0;color:var(--mut);font-size:14px;line-height:1.5}
+.notes{font-size:12px;color:var(--gold);letter-spacing:.04em}
+.row{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:10px}
+.price{font:500 24px 'Cormorant Garamond',serif}
+.btn{background:var(--wine);color:#fff;border:0;padding:11px 20px;border-radius:99px;font-size:14px;letter-spacing:.05em}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn{color:#1a0f13}}
+.btn.ghost{background:none;border:1px solid var(--line);color:var(--tx)}
+.values{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;padding:34px 22px;max-width:1000px;margin:auto;text-align:center;border-top:1px solid var(--line)}
+.values h3{font-size:20px;color:var(--gold)}.values p{margin:6px 0 0;font-size:14px;color:var(--mut)}
+footer{text-align:center;padding:30px 20px 50px;color:var(--mut);font-size:13px}
+.ov{position:fixed;inset:0;background:rgba(20,8,12,.55);display:none;justify-content:flex-end;z-index:20}.ov.on{display:flex}
+.panel{background:var(--bg);width:min(440px,100%);height:100%;overflow:auto;padding:22px;padding-top:calc(22px + env(safe-area-inset-top,0px))}
+.panel h2{font-size:30px;margin-bottom:14px}
+.item{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px}
+.qty button{width:26px;height:26px;border-radius:50%;border:1px solid var(--line);background:var(--surf);color:var(--tx)}
+input,select{width:100%;padding:12px;margin:5px 0;border:1px solid var(--line);border-radius:10px;background:var(--surf);color:var(--tx);font:inherit}
+label{font-size:12px;color:var(--mut);letter-spacing:.08em;text-transform:uppercase}
+.pay{display:flex;gap:8px;margin:8px 0 14px}.pay div{flex:1;text-align:center;padding:12px;border:1px solid var(--line);border-radius:10px;cursor:pointer;background:var(--surf)}.pay .sel{border-color:var(--gold);outline:1px solid var(--gold)}
+.total{display:flex;justify-content:space-between;font:500 26px 'Cormorant Garamond',serif;margin:14px 0}
+.note{font-size:12px;color:var(--mut);line-height:1.5;margin-top:10px}
+.wrap{max-width:1000px;margin:auto;padding:24px 18px 60px}
+.box{background:var(--surf);border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:18px}
+.box h3{font-size:24px;margin-bottom:10px}
+.tw{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:14px}th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);white-space:nowrap}th{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);font-weight:400}
+.lk{display:flex;gap:8px;align-items:center;font-size:13px;padding:7px 0;border-bottom:1px solid var(--line)}.lk span{flex:1;overflow-wrap:anywhere}.lk button{padding:6px 12px;font-size:12px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}.kpi{background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:14px}.kpi b{display:block;font:500 28px 'Cormorant Garamond',serif;color:var(--gold)}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--wine);color:#fff;padding:10px 18px;border-radius:99px;font-size:14px;display:none;z-index:50}
+</style><script src="https://sdk.mercadopago.com/js/v2"></script></head>
+<body>
+<div id="app"></div>
+<div class="toast" id="toast"></div>
+<script>
+const P=[{"id": "kit-grace", "img": "kg", "n": "Kit Presente Grace Royale", "l": "Colônia 100 ml + Creme 200 g", "p": 334.9, "d": "Fragrância floral envolvente e hidratação profunda, em embalagem de Natal.", "notes": "Floral · sofisticada"}, {"id": "empire-presence", "img": "ep", "n": "Empire Woman Presence", "l": "Deo parfum 100 ml", "p": 294.9, "d": "Marcante e envolvente, com baunilha. Para quem ama La Bomba.", "notes": "Referência olfativa: La Bomba"}, {"id": "empire-glam", "img": "eg", "n": "Empire Woman Glam", "l": "Desodorante colônia", "p": 214.9, "d": "Glamour dourado com toque de caramelo. Para quem ama Scandal.", "notes": "Referência olfativa: Scandal"}, {"id": "empire-woman", "img": "ew", "n": "Empire Woman", "l": "Desodorante colônia", "p": 214.9, "d": "Feminina e elegante, com baunilha. Para quem ama Good Girl Blush.", "notes": "Referência olfativa: Good Girl Blush"}, {"id": "joli-coffee", "img": "jc", "n": "Joli Coffee & Red Berries", "l": "Óleo ou óleo em creme 200 ml", "p": 94.9, "d": "A energia do café com a doçura das frutas vermelhas.", "notes": "Café · frutas vermelhas"}, {"id": "sens-confianca", "img": "sn", "n": "Sensações Confiança", "l": "Body splash 60 ml", "p": 54.9, "d": "Marcante e sofisticada: orquídea roxa, cereja, âmbar e caramelo.", "notes": ""}, {"id": "sens-intuicao", "img": "sn", "n": "Sensações Intuição", "l": "Body splash 60 ml", "p": 54.9, "d": "Leve e envolvente: flor de lótus, mandarina e açúcar mascavo.", "notes": ""}, {"id": "kit-sens-hands", "img": "k1", "n": "Kit Presente Confiança + Hands Aloe Vera", "l": "Body splash 60 ml + Luva de silicone 100 g", "p": 87.8, "d": "Caixa com laço dourado, pronta para presentear.", "notes": "Clássicos de Natal"}, {"id": "kit-joli-ameixa", "img": "k2", "n": "Kit Presente Joli Ameixa & Jasmim + Confiança", "l": "Óleo 200 ml + Body splash 60 ml", "p": 134.8, "d": "Óleo corporal Precious Oils e body splash em embalagem de Natal.", "notes": "Clássicos de Natal"}, {"id": "kit-dazzle", "img": "k3", "n": "Kit Presente Dazzle + Confiança", "l": "Dazzle + Body splash 60 ml", "p": 194.8, "d": "Perfume de presença marcante com body splash, em embalagem de Natal.", "notes": "Clássicos de Natal"}];
+const IMG={"kg":"/kg.jpg","jc":"/jc.jpg","gr":"/gr.jpg","ep":"/ep.jpg","eg":"/eg.jpg","ew":"/ew.jpg","sn":"/sn.jpg","k1":"/k1.jpg","k2":"/k2.jpg","k3":"/k3.jpg"};
+const R=v=>v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+const slug=s=>(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+let cart={},ref="direto",via="loja",pay="pix",db=null,orders=[],user=null,comm=10;
+function parseHash(){const q=new URLSearchParams(location.search);if(q.get("ref"))return{r:slug(q.get("ref")),p:q.get("p")||undefined};const h=decodeURIComponent(location.hash.slice(1));if(!h||h==="admin")return{};const [r,p]=h.split("--");return{r:r,p:p}}
+function applyRef(){const x=parseHash();
+ if(x.r&&x.r!=="admin"){ref=x.r;via=x.p&&P.find(a=>a.id===x.p)?x.p:"loja";try{localStorage.setItem("ref",JSON.stringify({ref,via}))}catch(e){}}
+ else{try{const s=JSON.parse(localStorage.getItem("ref")||"null");if(s){ref=s.ref;via=s.via}}catch(e){}}}
+function toast(t){const e=$("#toast");e.textContent=t;e.style.display="block";setTimeout(()=>e.style.display="none",2200)}
+const count=()=>Object.values(cart).reduce((a,b)=>a+b,0);
+const total=()=>Object.entries(cart).reduce((s,[id,q])=>s+P.find(p=>p.id===id).p*q,0);
+function store(){const hi=parseHash().p;const feat=hi?P.find(p=>p.id===hi):null;
+$("#app").innerHTML=`
+<header><div class="logo">ALLU<small>COSMÉTICOS</small></div><button class="cartbtn" onclick="openCart()">Sacola (${count()})</button></header>
+<section class="hero"><h1>Beleza que <i>emociona</i>,<br>presentes que ficam.</h1><p>Trabalhamos exclusivamente com a linha Eau de Parfum da Hinode: fragrâncias marcantes, escolhidas uma a uma. Compre com segurança, direto aqui.</p><span class="badge">Seleção Eau de Parfum</span></section>
+<div class="grid">${[...new Set(P.map(p=>p.img))].map(k=>{const g=P.filter(p=>p.img===k);return`<article class="card" id="card-${k}"><img src="${IMG[k]}" alt="${esc(g[0].n)}" loading="lazy"><div class="body">${g.map(p=>`<div class="pr" id="${p.id}"><h3>${esc(p.n)}</h3><p>${esc(p.l)}</p>${p.notes?`<div class="notes">${esc(p.notes)}</div>`:""}<div class="row"><span class="price">${R(p.p)}</span><button class="btn" onclick="add('${p.id}')">Adicionar</button></div></div>`).join("")}</div></article>`}).join("")}</div>
+<section class="values"><div><h3>Presente pronto</h3><p>Embalagens especiais de Natal com laço dourado.</p></div><div><h3>Pagamento seguro</h3><p>Pix ou cartão, direto na página.</p></div><div><h3>Só Eau de Parfum</h3><p>Trabalhamos apenas com essa linha Hinode.</p></div></section>
+<footer>© Allu Cosméticos</footer>
+<div class="ov" id="ov" onclick="if(event.target===this)closeCart()"><div class="panel" id="panel"></div></div>`;
+if(feat){const e=document.getElementById(feat.id);e&&setTimeout(()=>{e.scrollIntoView({behavior:"smooth",block:"center"});e.style.outline="2px solid var(--gold)"},300)}}
+function add(id){cart[id]=(cart[id]||0)+1;toast("Adicionado à sacola");store()}
+function qty(id,d){cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];renderCart()}
+function openCart(){$("#ov").classList.add("on");renderCart()}
+function closeCart(){$("#ov").classList.remove("on")}
+const PK="APP_USR-68f38d3f-fe27-40e0-be38-3f18df95ad59";
+let cust={};
+function renderCart(){const ids=Object.keys(cart);
+$("#panel").innerHTML=`<h2>Sua sacola</h2>`+(ids.length?ids.map(id=>{const p=P.find(a=>a.id===id);return`<div class="item"><div>${esc(p.n)}<br><small style="color:var(--mut)">${R(p.p)}</small></div><div class="qty"><button onclick="qty('${id}',-1)">−</button> ${cart[id]} <button onclick="qty('${id}',1)">+</button></div></div>`}).join("")+`
+<div class="total"><span>Total</span><span>${R(total())}</span></div>
+<label>Nome completo</label><input id="cn" autocomplete="name" value="${esc(cust.n||"")}"><label>WhatsApp</label><input id="cw" inputmode="tel" autocomplete="tel" value="${esc(cust.w||"")}"><label>E-mail</label><input id="ce" type="email" autocomplete="email" value="${esc(cust.e||"")}"><label>Endereço de entrega</label><input id="ca" autocomplete="street-address" value="${esc(cust.a||"")}">
+<button class="btn" style="width:100%;padding:15px;margin-top:10px" onclick="goPay()">Ir para o pagamento</button>`:`<p style="color:var(--mut)">Sua sacola está vazia.</p>`)+`<button class="btn ghost" style="width:100%;margin-top:14px" onclick="closeCart()">Continuar comprando</button>`}
+async function goPay(){cust={n:$("#cn").value.trim(),w:$("#cw").value.trim(),e:$("#ce").value.trim(),a:$("#ca").value.trim()};
+ if(!cust.n||!cust.w||!cust.a||!/^\S+@\S+\.\S+$/.test(cust.e)){toast("Preencha todos os campos, com e-mail válido");return}
+ const amount=Math.round(total()*100)/100;
+ $("#panel").innerHTML=`<h2>Pagamento</h2><div class="total"><span>Total</span><span>${R(amount)}</span></div><div id="brick"></div><button class="btn ghost" style="width:100%;margin-top:14px" onclick="renderCart()">Voltar</button>`;
+ try{const mp=new MercadoPago(PK,{locale:"pt-BR"});
+ await mp.bricks().create("payment","brick",{initialization:{amount,payer:{email:cust.e}},
+ customization:{paymentMethods:{creditCard:"all",bankTransfer:["pix"],maxInstallments:3}},
+ callbacks:{onReady(){},onError(e){console.error(e)},
+ onSubmit:({formData})=>new Promise((res,rej)=>{
+  fetch("/.netlify/functions/api?a=pay",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({formData,items:Object.entries(cart).map(([id,q])=>({id,q})),ref,via,cliente:cust})})
+  .then(r=>r.json()).then(d=>{if(d.error){toast(d.error);rej()}else{res();showResult(d)}}).catch(e=>{toast("Erro de conexão. Tente de novo.");rej()})})}});
+ }catch(e){$("#brick").innerHTML="<p>Não foi possível carregar o pagamento. Recarregue a página.</p>"}}
+function showResult(d){let h="";
+ if(d.pix){h=`<h2>Pague com Pix</h2><p style="line-height:1.6">Escaneie o QR Code ou copie o código. O pedido é confirmado assim que o Pix for pago.</p><img style="width:220px;display:block;margin:12px auto" src="data:image/png;base64,${d.pix.qr_base64}"><input readonly id="pxc" value="${esc(d.pix.qr)}"><button class="btn" style="width:100%" onclick="$('#pxc').select();document.execCommand('copy');toast('Código copiado')">Copiar código Pix</button>`}
+ else if(d.status==="approved"){h=`<h2>Pagamento aprovado</h2><p style="line-height:1.6">Obrigado, ${esc(cust.n)}! Entraremos em contato pelo WhatsApp para combinar a entrega.</p>`}
+ else if(d.status==="rejected"){$("#panel").innerHTML=`<h2>Pagamento não aprovado</h2><p style="line-height:1.6">O banco não aprovou o pagamento. Tente outro cartão ou pague com Pix.</p><button class="btn" style="width:100%" onclick="goPay()">Tentar de novo</button>`;return}
+ else{h=`<h2>Pagamento em análise</h2><p style="line-height:1.6">Assim que for confirmado, entraremos em contato pelo WhatsApp.</p>`}
+ cart={};$("#panel").innerHTML=h+`<button class="btn ghost" style="width:100%;margin-top:14px" onclick="closeCart();store()">Voltar à loja</button>`}
+function route(){applyRef();store()}
+window.addEventListener("hashchange",route);route();
+(async()=>{try{user=await claude.use("user");db=await claude.use("db");
+ if(db&&user&&user.isOwner()){db.collection("orders").onSnapshot(s=>{orders=s.docs.map(d=>d.data());if(parseHash().admin)admin()},()=>{})}
+ if(parseHash().admin)admin()}catch(e){}})();
+</script></body></html>
