@@ -1,6 +1,7 @@
 import { getStore } from "@netlify/blobs";
+import { PRODUCTS as CATALOG } from "../../catalog.mjs";
 
-const PRODUCTS = {"kit-grace": {"name": "Kit Presente Grace Royale", "price": 334.9}, "empire-presence": {"name": "Empire Woman Presence", "price": 294.9}, "empire-glam": {"name": "Empire Woman Glam", "price": 214.9}, "empire-woman": {"name": "Empire Woman", "price": 214.9}, "joli-coffee": {"name": "Joli Coffee & Red Berries", "price": 94.9}, "sens-confianca": {"name": "Sensações Confiança", "price": 54.9}, "sens-intuicao": {"name": "Sensações Intuição", "price": 54.9}, "kit-sens-hands": {"name": "Kit Presente Confiança + Hands Aloe Vera", "price": 87.8}, "kit-joli-ameixa": {"name": "Kit Presente Joli Ameixa & Jasmim + Confiança", "price": 134.8}, "kit-dazzle": {"name": "Kit Presente Dazzle + Confiança", "price": 194.8}};
+const PRODUCTS = Object.fromEntries(CATALOG.map(p => [p.id, { name: p.name, price: p.price }]));
 const COMISSAO_POR_ITEM = 15;
 
 const json = (o, s = 200) => new Response(JSON.stringify(o), { status: s, headers: { "Content-Type": "application/json" } });
