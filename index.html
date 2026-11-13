@@ -76,7 +76,7 @@ function renderProducts(){const term=searchTerm.trim().toLocaleLowerCase("pt-BR"
 function store(){const hi=parseHash().p;const feat=hi?P.find(p=>p.id===hi):null;
  $("#app").innerHTML=`
 <header><div class="logo">ALLU<small>COSMÉTICOS</small></div><button class="cartbtn" onclick="openCart()">Sacola (${count()})</button></header>
-<section class="hero"><h1>Beleza que <i>emociona</i>,<br>presentes que ficam.</h1><p>Explore o catálogo Allu Cosméticos: perfumes, cuidados com o corpo, rosto, cabelos, maquiagem e muito mais. Todos os preços já incluem R$ 20,00 sobre o valor de catálogo.</p><span class="badge">Catálogo Hinode • 223 produtos</span></section>
+<section class="hero"><h1>Beleza que <i>emociona</i>,<br>presentes que ficam.</h1><p>Explore o catálogo Allu Cosméticos: perfumes, cuidados com o corpo, rosto, cabelos, maquiagem e muito mais. Todos os preços já incluem R$ 20,00 sobre o valor de catálogo.</p><span class="badge">CATÁLOGO • 223 PRODUTOS</span></section>
 <section class="catalog-tools"><input id="searchProducts" type="search" placeholder="Buscar produto, linha ou código..." value="${esc(searchTerm)}"><div class="filters">${categories.map(c=>'<button class="filter '+(c===activeCategory?'active':'')+'" onclick="setCategory(\''+c.replace(/'/g,"\\'")+'\')">'+esc(c)+'</button>').join("")}</div><p id="resultCount" class="result-count"></p></section>
 <div class="grid" id="products"></div>
 <section class="values"><div><h3>Catálogo completo</h3><p>Produtos organizados por categoria para facilitar sua escolha.</p></div><div><h3>Pagamento seguro</h3><p>Pix ou cartão, direto na página.</p></div><div><h3>Preço transparente</h3><p>Valor do catálogo acrescido de R$ 20,00 por produto.</p></div></section>
