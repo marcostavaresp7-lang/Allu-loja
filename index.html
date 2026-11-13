@@ -124,14 +124,14 @@ function store(){const hi=parseHash().p;const feat=hi?P.find(p=>p.id===hi):null;
  $("#app").innerHTML=`
 <div class="promo-strip">Descubra sua próxima escolha favorita • Allu Cosméticos</div>
 <header><div class="logo">ALLU<small>COSMÉTICOS</small></div><button class="cartbtn" onclick="openCart()">Sacola (${count()})</button></header>
-<section class="hero"><h1>Beleza que <i>emociona</i>,<br>presentes que ficam.</h1><p>Encontre perfumes, cuidados com o corpo, rosto, cabelos, maquiagem e muito mais. Preços com R$ 20,00 adicionados ao valor de catálogo.</p><span class="badge">CATÁLOGO • ${P.length} PRODUTOS</span></section>
+<section class="hero"><h1>Beleza que <i>emociona</i>,<br>presentes que ficam.</h1><p>Encontre perfumes, cuidados com o corpo, rosto, cabelos, maquiagem e muito mais. Descubra produtos para você e para presentear.</p><span class="badge">CATÁLOGO • ${P.length} PRODUTOS</span></section>
 <section class="catalog-tools">
 <div class="search-wrap"><span class="search-icon">⌕</span><input id="searchProducts" type="search" placeholder="O que você está procurando?" value="${esc(searchTerm)}"></div>
 <div class="filters" role="group" aria-label="Categorias de produtos">${categories.map(c=>'<button class="filter '+(c===activeCategory?'active':'')+'" onclick="setCategory(\''+c.replace(/'/g,"\\'")+'\')">'+esc(c)+'</button>').join("")}</div>
 </section>
 <div class="catalog-heading"><div><h2>${activeCategory==="Todos"?"Nossos produtos":esc(activeCategory)}</h2><p id="resultCount" class="result-count"></p></div><select id="sortProducts" aria-label="Ordenar produtos"><option value="relevance">Mais relevantes</option><option value="price-asc">Menor preço</option><option value="price-desc">Maior preço</option><option value="name-asc">Nome: A–Z</option><option value="name-desc">Nome: Z–A</option></select></div>
 <div class="grid" id="products"></div>
-<section class="values"><div><h3>Catálogo completo</h3><p>Produtos organizados por categoria para facilitar sua escolha.</p></div><div><h3>Pagamento seguro</h3><p>Pix ou cartão, direto na página.</p></div><div><h3>Preço transparente</h3><p>Valor do catálogo acrescido de R$ 20,00 por produto.</p></div></section>
+<section class="values"><div><h3>Catálogo completo</h3><p>Produtos organizados por categoria para facilitar sua escolha.</p></div><div><h3>Pagamento seguro</h3><p>Pix ou cartão, direto na página.</p></div><div><h3>Ofertas especiais</h3><p>Encontre seus favoritos com praticidade e segurança.</p></div></section>
 <footer>© Allu Cosméticos</footer>
 <div class="ov" id="ov" onclick="if(event.target===this)closeCart()"><div class="panel" id="panel"></div></div>`;
 $("#searchProducts").addEventListener("input",e=>{searchTerm=e.target.value;renderProducts()});$("#sortProducts").value=sortProducts;$("#sortProducts").addEventListener("change",e=>{sortProducts=e.target.value;renderProducts()});renderProducts();
